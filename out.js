@@ -70,5 +70,71 @@
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    var canvas = document.querySelector('#canvas');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    var c = canvas.getContext('2d');
+    var numberOfCircles = 14;
+
+    var Circle = function () {
+        function Circle(x, y, dx, dy, radius) {
+            _classCallCheck(this, Circle);
+
+            this.x = x;
+            this.y = y;
+            this.dx = dx;
+            this.dy = dy;
+            this.radius = radius;
+        }
+
+        _createClass(Circle, [{
+            key: 'draw',
+            value: function draw() {
+                c.beginPath();
+                c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                c.strokeStyle = 'rgb(71, 47, 116)';
+                c.stroke();
+            }
+        }, {
+            key: 'update',
+            value: function update() {
+                this.x += this.dx;
+                // this.y += this.dy;
+
+                this.draw();
+            }
+        }]);
+
+        return Circle;
+    }();
+
+    var circleArr = [];
+
+    for (var _i = 0; _i < numberOfCircles; _i++) {
+
+        var radius = 60;
+        var x = -50;
+        var y = 10 * _i * dy;
+        var dx = radius;
+        var dy = 5;
+
+        circleArr.push(new Circle(x, y, dx, dy, radius));
+    }
+
+    for (var i = 0; i < 22; i++) {
+        for (var _i2 = 0; _i2 < circleArr.length; _i2++) {
+            circleArr[_i2].update();
+        }
+    }
+});
+
 /***/ })
 /******/ ]);
